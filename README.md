@@ -1,24 +1,2 @@
 # vue-landing-vr
-
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+макет https://www.figma.com/file/mcc94u243UakSz2Ied9Zeh/VRNas?type=design&node-id=7-21&mode=design&t=UwJXNPtmFUCEYjo0-0
