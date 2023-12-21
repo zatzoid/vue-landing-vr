@@ -7,10 +7,12 @@ import MainPage from '@/components/MainPage'
 import AboutPage from '@/components/AboutPage'
 import ServicePage from '@/components/ServicePage'
 
+
 const routes = [
     { path: '/', component: MainPage },
     { path: '/about', component: AboutPage },
     { path: '/service', component: ServicePage },
+    { path: '/:pathMatch(.*)*', component: MainPage }
 ]
 
 const app = createApp(App)
