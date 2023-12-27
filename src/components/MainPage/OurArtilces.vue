@@ -10,14 +10,32 @@
             </div>
         </Transition>
         <Transition name="showItemArticle">
-            <div class="articles__item-wrapper" v-show="elementShow">
+            <div class="articles__item-wrapper" v-show="elementShow" >
                 <h3 class="articles__item-heading">current item</h3>
-                <div class="articles__item">
-                    <div class="articles__item-name">
+                <div class="articles__item" @click="showVideo = !showVideo">
+                    <div class="articles__item-name" :class="{ 'articles__item-name_hide': showVideo }">
                         <p>{{ itemList[currentEl].text }}</p>
                     </div>
+                    <div>
+                        <picture class="articles__item-img" v-if="!showVideo" >
+                            <source :srcset="`https://i.ytimg.com/vi_webp/${itemList[currentEl].video}/maxresdefault.webp`"
+                                type="image/webp">
+                            <img :src="`https://i.ytimg.com/vi/${itemList[currentEl].video}/maxresdefault.jpg`"
+                                :alt="itemList[currentEl].text">
+                            <button class="articles__item-play-btn" aria-label="play video">
+                                <svg version="1.1" width="100px" height="70px" viewBox="0 0 260 180"
+                                    enable-background="new 0 0 260 180" xml:space="preserve">
+                                    <path d="M220,2H40C19.01,2,2,19.01,2,40v100c0,20.99,17.01,38,38,38h180c20.99,0,38-17.01,38-38V40C258,19.01,240.99,2,220,2z
+                            M102,130V50l68,40L102,130z" />
+                                </svg>
 
-                    <img class="articles__item-img" :src="itemList[currentEl].img" alt="picture">
+                            </button>
+                        </picture>
+                        <iframe class="articles__item-video" title="YouTube video player"
+                            :src="`https://www.youtube.com/embed/${itemList[currentEl].video}?rel=0&autoplay=1&mute=1&showinfo=0`"
+                            frameborder="0" v-if="showVideo"></iframe>
+                    </div>
+
                 </div>
             </div>
         </Transition>
@@ -43,40 +61,49 @@ export default {
     name: 'OurArticles',
     data() {
         return {
-            currentEl: 1,
+            currentEl: 0,
             elementShow: false,
+            showVideo: false,
             itemList: [
                 {
                     text: 'The Future of Education: How VR is Revolutionizing the Classroom',
-                    img: require('@/assets/items/item1.png')
+                    img: require('@/assets/items/item1.png'),
+                    video: 'k3WkJq478To'
                 },
                 {
                     text: 'Bringing Designs to Life: How VR is Changing Architecture',
-                    img: require('@/assets/items/item2.png')
+                    img: require('@/assets/items/item2.png'),
+                    video: 'xcyzh_GzpLA'
                 },
                 {
                     text: 'Making Events Memorable: The Power of VR for Corporate and Special Occasions',
-                    img: require('@/assets/items/item3.png')
+                    img: require('@/assets/items/item3.png'),
+                    video: 'Gfo8jFSPm9Y'
                 },
                 {
                     text: 'Exploring New Worlds: The Benefits of VR Travel',
-                    img: require('@/assets/items/item4.png')
+                    img: require('@/assets/items/item4.png'),
+                    video: 'SsrcW-5XlK4',
                 },
                 {
                     text: 'The Future of Education: How VR is Revolutionizing the Classroom',
-                    img: require('@/assets/items/item1.png')
+                    img: require('@/assets/items/item1.png'),
+                    video: 'PYtefaXgiJs'
                 },
                 {
                     text: 'Bringing Designs to Life: How VR is Changing Architecture',
-                    img: require('@/assets/items/item2.png')
+                    img: require('@/assets/items/item2.png'),
+                    video: 'k3WkJq478To'
                 },
                 {
                     text: 'Making Events Memorable: The Power of VR for Corporate and Special Occasions',
-                    img: require('@/assets/items/item3.png')
+                    img: require('@/assets/items/item3.png'),
+                    video: 'Wd_bVNy2KE'
                 },
                 {
                     text: 'Exploring New Worlds: The Benefits of VR Travel',
-                    img: require('@/assets/items/item4.png')
+                    img: require('@/assets/items/item4.png'),
+                    video: 'Gfo8jFSPm9Y'
                 }
             ]
         }
@@ -92,7 +119,11 @@ export default {
                 this.elementShow = true
             }
 
+        },
+        currentEl() {
+            this.showVideo = false
         }
+
     },
     props: ['currentPos']
 }
@@ -104,7 +135,7 @@ export default {
     opacity: 0;
 }
 
-.showItemArticle-enter-active{
+.showItemArticle-enter-active {
     transition: all .5s 1s;
 }
 
@@ -112,8 +143,8 @@ export default {
 .showItemArticle-enter-to {
     transform: translateX(0);
     opacity: 1;
-   
-   
+
+
 }
 
 .articles__items-grid::-webkit-scrollbar {
@@ -209,8 +240,39 @@ export default {
         margin-top: 32px;
         box-sizing: border-box;
         position: relative;
-        height: 425px;
-       
+        height: 60%;
+        cursor: pointer;
+
+        &:hover .articles__item-play-btn {
+            fill: #ff0000;
+            fill-opacity: 1;
+        }
+
+        &-video {
+            position: absolute;
+            width: 110%;
+            height: 100%;
+        }
+
+        &-play-btn {
+            fill: rgb(0, 0, 0);
+            fill-opacity: 0.8;
+            background-color: transparent;
+            border: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+
+            &:focus {
+                fill: #ff0000;
+                fill-opacity: 1;
+                outline: none;
+            }
+
+        }
+
 
         &-wrapper {
             height: 100%;
@@ -229,9 +291,16 @@ export default {
             font-weight: 600;
             line-height: 42px;
             letter-spacing: -0.005em;
+            max-height: max-content;
+            transition: all .5s;
+            overflow: hidden;
 
-            p {
+            & p {
                 padding-left: 10px;
+            }
+            &_hide{
+                padding: 0;
+                max-height: 0;
             }
         }
 
@@ -243,6 +312,12 @@ export default {
             transform: translate(0, -50%);
             width: 110%;
             height: 100%;
+
+            &source,
+            img {
+                width: 100%;
+                height: 100%;
+            }
         }
 
         &-heading {
@@ -288,5 +363,4 @@ export default {
             max-width: 20vw;
         }
     }
-}
-</style>
+}</style>

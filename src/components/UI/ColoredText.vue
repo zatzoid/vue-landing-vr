@@ -1,11 +1,13 @@
 <template>
-    <h4 ref="watchedEl" class="text"
-        :style="{ background: `linear-gradient(${cursorPos}deg, var(--col-pink) 0%, var(--col-blue) 100%)`, backgroundClip: 'text' }"
-        @mousemove="(e) => mousefunc(e)">
-        <slot>
+    <div ref="watchedEl" class="text"
+    @mousemove="(e) => mousefunc(e)"
+        :style="{ background: `linear-gradient(${cursorPos}deg, var(--col-pink) 0%, var(--col-blue) 100%)`, backgroundClip: 'text' }">
+        <h4>
+            <slot>
 
-        </slot>
-    </h4>
+            </slot>
+        </h4>
+    </div>
 </template>
 <script>
 import mouseMove from '@/utils/mouseMove.js'
@@ -29,10 +31,22 @@ export default {
     text-transform: uppercase;
     margin: 0;
     -webkit-text-fill-color: transparent;
+    color: transparent;
     font-size: 16px;
     font-weight: 500;
     line-height: 21px;
     letter-spacing: 0.14em;
+
+}
+
+h4 {
+    display: inline;
+}
+@supports not (-webkit-text-fill-color: transparent){
+    .text{
+        background-color: transparent !important;
+        color: white;
+    }
 
 }
 </style>

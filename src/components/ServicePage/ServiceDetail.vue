@@ -21,7 +21,7 @@
                     :key="index">
                     <button class="detail__grid-el-btn" :disabled="currentItem === index" @click=" this.currentItem = index"
                         :style="{ transform: `rotate(${index <= currentItem ? -30 - (index * 13) : -100 - (index * 13)}deg)` }">
-                        <p class="detail__grid-el-btn-text">{{ item.name }}</p>
+                        <div class="detail__grid-el-btn-text"><p class="detail__grid-el-btn-text-el">{{ item.name }}</p></div>
                     </button>
                 </li>
             </ul>
@@ -143,17 +143,21 @@ export default {
                 cursor: pointer;
                 transition: all .4s;
 
+
                 &-text {
                     background-color: var(--col-black-light);
                     border: 2px solid var(--col-grey-dark);
                     width: clamp(50px, 11vw, 100px);
                     height: clamp(50px, 11vw, 100px);
-                    text-align: center;
+                    border-radius: 50%;
                     display: flex;
                     flex-direction: column;
                     justify-content: center;
-                    white-space: pre-wrap;
-                    border-radius: 50%;
+                    align-items: center;
+                    &-el{
+                        text-align: center;
+                        width: min-content;
+                    }
                 }
 
 
