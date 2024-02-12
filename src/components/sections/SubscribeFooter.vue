@@ -5,7 +5,7 @@
         <p class="sub__text section-heading">Subscribe to our newsletter for latest updates</p>
         <form @submit.prevent="subForm" class="sub__form">
             <input class="sub__form-input" type="text" required placeholder="enter text" v-model="inputVal">
-            <button class="sub__form-btn" type="submit"></button>
+            <button class="sub__form-btn" type="submit" aria-label="save-form" title="save-form"></button>
 
         </form>
 
